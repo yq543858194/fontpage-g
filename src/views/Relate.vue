@@ -3,9 +3,6 @@
     <div class="index-classify-container">
       <classify width="83.85%"/>
     </div>
-    <div class="index-carousel-container">
-      <index-carousel width="83.85%"/>
-    </div>
     <div class="index-list-container">
       <index-list width="83.85%" title="热血" :icon="this.$store.state.baseUrl + '/icons/flame.png'"/>
       <index-list width="83.85%" title="治愈" :icon="this.$store.state.baseUrl + '/icons/heart.png'"/>
@@ -20,7 +17,6 @@
 
 <script>
 import Classify from "@/components/common/Classify";
-import IndexCarousel from "@/components/index/IndexCarousel";
 import IndexList from "@/components/common/IndexList";
 import RankingList from "@/components/common/RankingList";
 
@@ -28,7 +24,6 @@ export default {
   name: 'home',
   components: {
     Classify,
-    IndexCarousel,
     IndexList,
     RankingList
   },
@@ -45,10 +40,6 @@ export default {
     width: 100%;
     background-color: @background-color-main;
     &-classify-container {
-      width: 100%;
-      margin: 20px 0 20px;
-    }
-    &-carousel-container {
       width: 100%;
       margin: 20px 0 20px;
     }

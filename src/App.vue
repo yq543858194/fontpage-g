@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <transition name="fade-header" mode="out-in">
+      <head-layout v-if="this.$store.state.showHeader"/>
+    </transition>
+    <transition name="fade-router" mode="out-in">
+      <router-view/>
+    </transition>
+    <transition name="fade-header" mode="out-in">
+      <foot-layout v-if="this.$store.state.showFooter"/>
+    </transition>
   </div>
 </template>
 
@@ -29,4 +33,27 @@
     }
   }
 }
+
+.fade-router-enter-active,.fade-router-leave-active {
+  transition: opacity .5s;
+}
+.fade-router-enter,.fade-router-leave-to {
+  opacity: 0;
+}
+.fade-header-enter-active, .fade-header-leave-active, .fade-footer-enter-active, .fade-footer-leave-active {
+  transition: transform .5s;
+}
+.fade-header-enter, .fade-header-leave-to {
+  transform: translateY(-100%);
+}
+.fade-footer-enter, .fade-footer-leave-to {
+  transform: translateY(100%);
+}
 </style>
+<script>
+  import HeadLayout from "@/views/layout/Head";
+  import FootLayout from "@/views/layout/Foot";
+  export default {
+    components: {FootLayout, HeadLayout}
+  }
+</script>
