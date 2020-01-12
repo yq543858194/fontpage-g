@@ -6,6 +6,9 @@
     <transition name="fade-router" mode="out-in">
       <router-view/>
     </transition>
+    <transition name="fade-router" mode="out-in">
+      <Menu v-if="this.$store.state.showPersonalCenter"/>
+    </transition>
     <transition name="fade-header" mode="out-in">
       <foot-layout v-if="this.$store.state.showFooter"/>
     </transition>
@@ -52,8 +55,9 @@
 </style>
 <script>
   import HeadLayout from "@/views/layout/Head";
+  import Menu from "@/components/personalCenter/Menu";
   import FootLayout from "@/views/layout/Foot";
   export default {
-    components: {FootLayout, HeadLayout}
+    components: {FootLayout, HeadLayout, Menu}
   }
 </script>

@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="head-nav-navbar right">
-                <div class="head-nav-navbar-item right point">
+                <div class="head-nav-navbar-item right point" @click="personalCenter">
                     <i class="fa fa-user"/>
                 </div>
                 <div class="head-nav-navbar-item right point">
@@ -33,7 +33,16 @@
 
 <script>
     export default {
-        name: "head"
+        name: "head",
+        methods: {
+            /**
+             * 显示个人中心菜单
+             */
+            personalCenter () {
+                document.getElementsByTagName("body")[0].style.overflow = 'hidden';
+                this.$store.dispatch('showPersonalCenter');
+            }
+        }
     }
 </script>
 

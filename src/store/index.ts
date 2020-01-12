@@ -8,6 +8,7 @@ export default new Vuex.Store({
     baseUrl: 'http://localhost:8080',
     showHeader: true,
     showFooter: true,
+    showPersonalCenter: false,
     cartoon: {
       currentPage: 0,
       showTools: false
@@ -22,6 +23,9 @@ export default new Vuex.Store({
       state.showHeader = true;
       state.showFooter = true;
     },
+    showPersonalCenterM (state) {
+      state.showPersonalCenter =! state.showPersonalCenter;
+    },
     setPage(state, page) {
       state.cartoon.currentPage = page;
     },
@@ -35,6 +39,9 @@ export default new Vuex.Store({
     },
     showLayout(context) {
       context.commit('showLayoutM');
+    },
+    showPersonalCenter(context) {
+      context.commit('showPersonalCenterM');
     },
     setCurrentPage(context, page) {
       context.commit('setPage', page);
