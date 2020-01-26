@@ -58,7 +58,7 @@
                     return [
                         {
                             /*评论者头像*/
-                            avatar: 'http://localhost:8080/imgs/avatar.png',
+                            avatar: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/avatar.png',
                             /*评论者昵称*/
                             name: '机器人一号',
                             /*评论内容*/
@@ -68,7 +68,7 @@
                         },
                         {
                             /*评论者头像*/
-                            avatar: 'http://localhost:8080/imgs/avatar.png',
+                            avatar: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/avatar.png',
                             /*评论者昵称*/
                             name: '机器人一号',
                             /*评论内容*/

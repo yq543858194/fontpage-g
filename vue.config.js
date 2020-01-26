@@ -1,11 +1,11 @@
 module.exports = {
-    outputDir: 'dist',
-    assetsDir: '',
-    indexPath: 'index.html',
+    publicPath: process.env.NODE_ENV === "production" ? "/cartoon/" : "/",
+    outputDir: 'cartoon',
+    lintOnSave: true,
     filenameHashing: true,
     devServer: {
         open: true,
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 3000
     }
 };

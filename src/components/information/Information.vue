@@ -53,25 +53,25 @@
             /*相关信息作者头像*/
             avatar: {
                 type: String,
-                default: 'http://localhost:8080/imgs/avatar.png'
+                default: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/avatar.png'
             },
             /*相关信息内容*/
             content: {
                 type: String,
                 default: '<p>一些有关兽耳的动漫图片，来自PIXIV。</p>' +
-                    '<img src="http://localhost:8080/relatedInformation/1.jpeg" alt="兽耳1">' +
+                    '<img src="https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/relatedInformation/1.jpeg" alt="兽耳1">' +
                     '<span class="text-center">兽耳1</span>' +
-                    '<img src="http://localhost:8080/relatedInformation/2.jpeg" alt="兽耳1">' +
+                    '<img src="https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/relatedInformation/2.jpeg" alt="兽耳1">' +
                     '<span class="text-center">兽耳2</span>' +
-                    '<img src="http://localhost:8080/relatedInformation/3.jpeg" alt="兽耳1">' +
+                    '<img src="https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/relatedInformation/3.jpeg" alt="兽耳1">' +
                     '<span class="text-center">兽耳3</span>' +
-                    '<img src="http://localhost:8080/relatedInformation/4.jpeg" alt="兽耳1">' +
+                    '<img src="https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/relatedInformation/4.jpeg" alt="兽耳1">' +
                     '<span class="text-center">兽耳4</span>' +
-                    '<img src="http://localhost:8080/relatedInformation/5.png" alt="兽耳1">' +
+                    '<img src="https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/relatedInformation/5.png" alt="兽耳1">' +
                     '<span class="text-center">兽耳5</span>' +
-                    '<img src="http://localhost:8080/relatedInformation/6.png" alt="兽耳1">' +
+                    '<img src="https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/relatedInformation/6.png" alt="兽耳1">' +
                     '<span class="text-center">兽耳6</span>' +
-                    '<img src="http://localhost:8080/relatedInformation/7.png" alt="兽耳1">' +
+                    '<img src="https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/relatedInformation/7.png" alt="兽耳1">' +
                     '<span class="text-center">兽耳7</span>' +
                     '<p>希望大家喜欢，谢谢</p>'
             }

@@ -5,7 +5,7 @@
             <div class="menu-close point" @click="closePersonalCenter">
                 <i class="fa fa-close"/>
             </div>
-            <div class="menu-left">
+            <div class="menu-left" @click="changePage">
                 <div class="menu-left-item history point">
                     <img :src="this.$store.state.baseUrl + '/icons/history.png'">
                     <span>历史记录</span>
@@ -23,7 +23,7 @@
                     <span>我的投稿</span>
                 </div>
             </div>
-            <div class="menu-setting point">
+            <div class="menu-setting point" @click="changePage">
                 <img :src="this.$store.state.baseUrl + '/icons/person.png'">
                 <span>个人设置</span>
             </div>
@@ -41,6 +41,21 @@
             closePersonalCenter () {
                 document.getElementsByTagName("body")[0].style.overflow = 'visible';
                 this.$store.dispatch('showPersonalCenter');
+            },
+            /**
+             * 跳转到相关页面
+             * @param e
+             */
+            changePage (e) {
+                switch (e.target.innerText) {
+                    case "历史记录": this.$store.dispatch("switchCurrentFunction", "历史记录");break;
+                    case "我的收藏": this.$store.dispatch("switchCurrentFunction", "我的收藏");break;
+                    case "我的点赞": this.$store.dispatch("switchCurrentFunction", "我的点赞");break;
+                    case "我的投稿": this.$store.dispatch("switchCurrentFunction", "我的投稿");break;
+                    case "个人设置": this.$store.dispatch("switchCurrentFunction", "个人设置");break;
+                }
+                this.closePersonalCenter();
+                this.$router.push("/personalCenter");
             }
         }
     }

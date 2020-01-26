@@ -51,6 +51,12 @@ const routes = [
     path: '/informationDetail/:cartoonId',
     name: 'informationDetail',
     component: () => import('../views/InformationDetail.vue')
+  },
+    /*个人中心页面*/
+  {
+    path: '/personalCenter',
+    name: 'personalCenter',
+    component: () => import('../views/PersonalCenter.vue')
   }
 ];
 

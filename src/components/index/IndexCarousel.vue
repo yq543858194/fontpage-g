@@ -29,19 +29,19 @@
                             /*幻灯片指向url*/
                             url: '#',
                             /*幻灯片图片链接*/
-                            post: 'http://localhost:8080/imgs/carousel1.png'
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/carousel1.png'
                         },
                         {
                             url: '#',
-                            post: 'http://localhost:8080/imgs/carousel2.png'
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/carousel2.png'
                         },
                         {
                             url: '#',
-                            post: 'http://localhost:8080/imgs/carousel3.png'
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/carousel3.png'
                         },
                         {
                             url: '#',
-                            post: 'http://localhost:8080/imgs/carousel4.png'
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/carousel4.png'
                         }
                     ]
                 }

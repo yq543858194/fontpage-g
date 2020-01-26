@@ -32,59 +32,59 @@
                 /*漫画列表*/
                 cartoonImgList: [
                     {
-                        url: 'http://localhost:8080/cartoon/01.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/01.jpg',
                         id: 'c1'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/02.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/02.jpg',
                         id: 'c2'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/03.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/03.jpg',
                         id: 'c3'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/04.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/04.jpg',
                         id: 'c4'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/05.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/05.jpg',
                         id: 'c5'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/06.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/06.jpg',
                         id: 'c6'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/07.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/07.jpg',
                         id: 'c7'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/08.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/08.jpg',
                         id: 'c8'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/09.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/09.jpg',
                         id: 'c9'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/10.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/10.jpg',
                         id: 'c10'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/11.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/11.jpg',
                         id: 'c11'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/12.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/12.jpg',
                         id: 'c12'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/13.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/13.jpg',
                         id: 'c13'
                     },
                     {
-                        url: 'http://localhost:8080/cartoon/14.jpg',
+                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/14.jpg',
                         id: 'c14'
                     }
                 ],

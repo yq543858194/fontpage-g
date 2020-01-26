@@ -67,7 +67,7 @@
             /*作者头像地址*/
             avatar: {
                 type: String,
-                default: 'http://localhost:8080/imgs/avatar.png'
+                default: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/avatar.png'
             },
             /*浏览数*/
             lookCount: {
@@ -77,7 +77,7 @@
             /*简介海报*/
             post: {
                 type: String,
-                default: 'http://localhost:8080/imgs/background2.png'
+                default: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background2.png'
             },
             /*动漫作者*/
             author: {

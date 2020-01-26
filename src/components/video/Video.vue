@@ -68,7 +68,7 @@
             /*作者头像地址*/
             avatar: {
                 type: String,
-                default: 'http://localhost:8080/imgs/avatar.png'
+                default: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/avatar.png'
             },
             /*观看数*/
             lookCount: {
@@ -78,12 +78,12 @@
             /*视频地址*/
             url: {
                 type: String,
-                default: 'http://localhost:8080/imgs/video.mp4'
+                default: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/video.mp4'
             },
             /*视频海报*/
             post: {
                 type: String,
-                default: 'http://localhost:8080/imgs/background1.png'
+                default: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background1.png'
             },
             /*赞状态*/
             isZan: {

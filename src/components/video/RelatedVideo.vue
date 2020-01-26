@@ -33,28 +33,28 @@
                 default: () => {
                     return [
                         {
-                            post: 'http://localhost:8080/imgs/background1.png',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background1.png',
                             url: '',
                             title: 'hello2',
                             author: '机器人1',
                             lookCount: 100
                         },
                         {
-                            post: 'http://localhost:8080/imgs/background2.png',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background2.png',
                             url: '',
                             title: 'hello3',
                             author: '机器人1',
                             lookCount: 100
                         },
                         {
-                            post: 'http://localhost:8080/imgs/background3.png',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background3.png',
                             url: '',
                             title: 'hello4',
                             author: '机器人1',
                             lookCount: 100
                         },
                         {
-                            post: 'http://localhost:8080/imgs/background4.png',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background4.png',
                             url: '',
                             title: 'hello5',
                             author: '机器人1',

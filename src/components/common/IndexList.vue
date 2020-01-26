@@ -34,35 +34,35 @@
                 default: () => {
                     return [
                         {
-                            post: 'http://localhost:8080/imgs/background1.png',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background1.png',
                             url: '/indexDetail/1',
                             title: '主页1',
                             author: '机器人1',
                             lookCount: 100
                         },
                         {
-                            post: 'http://localhost:8080/imgs/background2.png',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background2.png',
                             url: '/videoDetail/1',
                             title: '主页2',
                             author: '机器人1',
                             lookCount: 100
                         },
                         {
-                            post: 'http://localhost:8080/imgs/background3.png',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background3.png',
                             url: '/cartoonDetail/1',
                             title: '主页3',
                             author: '机器人1',
                             lookCount: 100
                         },
                         {
-                            post: 'http://localhost:8080/imgs/background4.png',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background4.png',
                             url: '/informationDetail/1',
                             title: '主页4',
                             author: '机器人1',
                             lookCount: 100
                         },
                         {
-                            post: 'http://localhost:8080/imgs/background5.jpg',
+                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background5.jpg',
                             url: '',
                             title: '主页5',
                             author: '机器人1',

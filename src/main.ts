@@ -5,7 +5,9 @@ import router from './router'
 import store from './store'
 import 'font-awesome/css/font-awesome.min.css'
 import 'element-ui/lib/theme-chalk/index.css'
-import {Carousel, CarouselItem, Button, Popover, Dialog, Slider, Table, TableColumn, Divider} from 'element-ui'
+import {Carousel, CarouselItem, Button, Popover, Dialog, Slider,
+  Table, TableColumn, Divider, Timeline, TimelineItem, Card,
+  Row, Col, Upload, Input, DatePicker, Select, Option} from 'element-ui'
 import 'video.js/dist/video-js.min.css'
 import VideoJs from 'video.js'
 
@@ -21,6 +23,16 @@ Vue.use(Slider);
 Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Divider);
+Vue.use(Timeline);
+Vue.use(TimelineItem);
+Vue.use(Card);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(Upload);
+Vue.use(Input);
+Vue.use(DatePicker);
+Vue.use(Select);
+Vue.use(Option);
 
 new Vue({
   router,

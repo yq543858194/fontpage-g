@@ -5,14 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com',
     showHeader: true,
     showFooter: true,
     showPersonalCenter: false,
     cartoon: {
       currentPage: 0,
       showTools: false
-    }
+    },
+    currentFunction: '历史记录'
   },
   mutations: {
     hideLayoutM(state) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     },
     showToolsM(state, status) {
       state.cartoon.showTools = status;
+    },
+    CurrentFunction (state, func) {
+      state.currentFunction = func;
     }
   },
   actions: {
@@ -48,6 +52,9 @@ export default new Vuex.Store({
     },
     setShowTools(context, status) {
       context.commit('showToolsM', status);
+    },
+    switchCurrentFunction(context, func) {
+      context.commit('CurrentFunction', func);
     }
   },
   modules: {
