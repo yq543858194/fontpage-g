@@ -57,6 +57,18 @@ const routes = [
     path: '/personalCenter',
     name: 'personalCenter',
     component: () => import('../views/PersonalCenter.vue')
+  },
+    /*登录页面*/
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue')
+  },
+    /*注册页面*/
+  {
+    path: '/register',
+    name: 'login',
+    component: () => import('../views/Register.vue')
   }
 ];
 

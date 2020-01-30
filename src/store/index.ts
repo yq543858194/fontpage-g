@@ -16,12 +16,16 @@ export default new Vuex.Store({
     currentFunction: '历史记录'
   },
   mutations: {
-    hideLayoutM(state) {
+    hideLayoutHeader(state) {
       state.showHeader = false;
+    },
+    hideLayoutFooter(state) {
       state.showFooter = false;
     },
-    showLayoutM(state) {
+    showLayoutHeader(state) {
       state.showHeader = true;
+    },
+    showLayoutFooter(state) {
       state.showFooter = true;
     },
     showPersonalCenterM (state) {
@@ -39,10 +43,15 @@ export default new Vuex.Store({
   },
   actions: {
     hideLayout(context) {
-      context.commit('hideLayoutM');
+      context.commit('hideLayoutHeader');
+      context.commit('hideLayoutFooter');
     },
     showLayout(context) {
-      context.commit('showLayoutM');
+      context.commit('showLayoutHeader');
+      context.commit('showLayoutFooter');
+    },
+    hideFooter(context) {
+      context.commit('hideLayoutFooter');
     },
     showPersonalCenter(context) {
       context.commit('showPersonalCenterM');
