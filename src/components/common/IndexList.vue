@@ -7,7 +7,7 @@
         </div>
         <!--列表项-->
         <div class="index-list-item-container">
-            <IndexListItem width="18%" :post="item.post" :url="item.url" :author="item.author" :title="item.title" :look-count="item.lookCount"  v-for="(item, index) in content" v-bind:key="index"/>
+            <IndexListItem width="18%" :type="type" :post="item.post" :url="item.id" :author="item.name" :title="item.title" :look-count="item.lookCount"  v-for="(item, index) in content" v-bind:key="index"/>
         </div>
     </div>
 </template>
@@ -75,6 +75,10 @@
             width: {
                 type: String,
                 default: '1610px'
+            },
+            /*列表类型*/
+            type: {
+                type: String
             }
         },
         components: {

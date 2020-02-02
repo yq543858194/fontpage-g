@@ -1,6 +1,6 @@
 <template>
     <div class="list-item" :style="{width: width}">
-        <router-link :to="url">
+        <router-link :to="`/${type}Detail?id=${url}`">
             <!--列表项缩略图-->
             <div class="list-item-img">
                 <img :src="post" :alt="title">
@@ -56,6 +56,10 @@
             width: {
                 type: String,
                 default: '380px'
+            },
+            /*列表*/
+            type: {
+                type: String
             }
         }
     }

@@ -30,25 +30,25 @@ const routes = [
   },
     /*视频详情页路由*/
   {
-    path: '/videoDetail/:videoId',
+    path: '/videoDetail',
     name: 'videoDetail',
     component: () => import('../views/VideoDetail.vue')
   },
     /*主页详情页路由*/
   {
-    path: '/indexDetail/:indexId',
+    path: '/indexDetail',
     name: 'indexDetail',
     component: () => import('../views/IndexDetail.vue')
   },
     /*动漫详情页路由*/
   {
-    path: '/cartoonDetail/:cartoonId',
+    path: '/cartoonDetail',
     name: 'cartoonDetail',
     component: () => import('../views/CartoonDetail.vue')
   },
     /*相关信息详情页*/
   {
-    path: '/informationDetail/:cartoonId',
+    path: '/informationDetail',
     name: 'informationDetail',
     component: () => import('../views/InformationDetail.vue')
   },

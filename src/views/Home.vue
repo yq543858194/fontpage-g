@@ -1,16 +1,13 @@
 <template>
   <div class="index">
     <div class="index-classify-container">
-      <classify width="83.85%"/>
+      <classify :catalog="classifyList" width="83.85%"/>
     </div>
     <div class="index-carousel-container">
       <index-carousel width="83.85%"/>
     </div>
     <div class="index-list-container">
-      <index-list width="83.85%" title="热血" :icon="this.$store.state.baseUrl + '/icons/flame.png'"/>
-      <index-list width="83.85%" title="治愈" :icon="this.$store.state.baseUrl + '/icons/heart.png'"/>
-      <index-list width="83.85%" title="玄幻" :icon="this.$store.state.baseUrl + '/icons/magicsword.png'"/>
-      <index-list width="83.85%" title="科幻" :icon="this.$store.state.baseUrl + '/icons/alienship.png'"/>
+      <index-list width="83.85%" type="index" :title="item.title" :content="item.content" :icon="$store.state.baseUrl + '/icons/flame.png'" v-for="(item, index) in classifyIndexList" :key="index"/>
     </div>
     <div class="index-ranking-container">
       <RankingList width="83.85%"/>
@@ -32,8 +29,35 @@ export default {
     IndexList,
     RankingList
   },
-  created() {
-    this.$store.dispatch('showLayout')
+  data () {
+    return {
+      classifyList: [],
+      classifyIndexList: []
+    }
+  },
+  async created() {
+    let self = this;
+    let response = await self.$axios.get(self.$store.state.serverBaseUrl + '/api/classify/getAllClassifies');
+    if (response.data.code === 200) {
+      self.classifyList = response.data.data;
+    } else {
+      self.$store.dispatch('infoDialog', response.data.msg);
+    }
+    self.classifyList.forEach((item) => {
+      self.$axios.get(self.$store.state.serverBaseUrl + `/api/index/getIndexList?current=1&size=5&typeId=${item.id}`).then((response) => {
+        if (response.data.code === 200) {
+          self.classifyIndexList.push({
+            icon: item.icon,
+            title: item.classifyName,
+            content: response.data.data.records
+          });
+        } else {
+          self.$store.dispatch('infoDialog', response.data.msg);
+        }
+      }).catch((error) => {
+        self.$store.dispatch('infoDialog', error);
+      });
+    });
   }
 }
 </script>

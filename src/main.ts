@@ -11,9 +11,12 @@ import {Carousel, CarouselItem, Button, Popover, Dialog, Slider,
   Form, FormItem} from 'element-ui'
 import 'video.js/dist/video-js.min.css'
 import VideoJs from 'video.js'
+import Axios from 'axios'
 
 Vue.config.productionTip = false;
 Vue.prototype.$video = VideoJs;
+
+Vue.prototype.$axios = Axios;
 
 Vue.use(Carousel);
 Vue.use(CarouselItem);

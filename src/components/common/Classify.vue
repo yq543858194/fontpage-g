@@ -2,7 +2,7 @@
     <!--分类列表-->
     <div class="classify-list" :style="{width: width}">
         <div class="classify-list-item point" v-for="(item, index) in catalog" v-bind:key="index">
-            <a :href="item.url">{{item.name}}</a>
+            <a :href="item.id">{{item.classifyName}}</a>
         </div>
     </div>
 </template>
@@ -20,42 +20,6 @@
                             /*分类名*/
                             name: '热血',
                             /*分类指向url*/
-                            url: ''
-                        },
-                        {
-                            name: '治愈',
-                            url: ''
-                        },
-                        {
-                            name: '玄幻',
-                            url: ''
-                        },
-                        {
-                            name: '科幻',
-                            url: ''
-                        },
-                        {
-                            name: '动作',
-                            url: ''
-                        },
-                        {
-                            name: '推理',
-                            url: ''
-                        },
-                        {
-                            name: '历史',
-                            url: ''
-                        },
-                        {
-                            name: '搞笑',
-                            url: ''
-                        },
-                        {
-                            name: '穿越',
-                            url: ''
-                        },
-                        {
-                            name: '...',
                             url: ''
                         }
                     ];

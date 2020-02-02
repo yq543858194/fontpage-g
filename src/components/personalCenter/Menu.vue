@@ -40,7 +40,7 @@
              */
             closePersonalCenter () {
                 document.getElementsByTagName("body")[0].style.overflow = 'visible';
-                this.$store.dispatch('showPersonalCenter');
+                this.$store.dispatch('showPersonalCenter',false);
             },
             /**
              * 跳转到相关页面

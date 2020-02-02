@@ -9,6 +9,18 @@
     <transition name="fade-router" mode="out-in">
       <Menu v-if="this.$store.state.showPersonalCenter"/>
     </transition>
+    <el-dialog
+            title="提示"
+            :visible.sync="$store.state.info.visible"
+            width="30%"
+            :show-close="false"
+            :close-on-press-escape="false"
+            :close-on-click-modal="false">
+      <span>{{$store.state.info.content}}</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button type="info" @click="$store.dispatch('hideInfoDialog')">确 定</el-button>
+  </span>
+    </el-dialog>
     <transition name="fade-header" mode="out-in">
       <foot-layout v-if="this.$store.state.showFooter"/>
     </transition>
@@ -58,6 +70,11 @@
   import Menu from "@/components/personalCenter/Menu";
   import FootLayout from "@/views/layout/Foot";
   export default {
-    components: {FootLayout, HeadLayout, Menu}
+    components: {FootLayout, HeadLayout, Menu},
+    created() {
+      if (localStorage.getItem("Authentication") != null) {
+        this.$store.dispatch('setToken', localStorage.getItem("Authentication"));
+      }
+    }
   }
 </script>

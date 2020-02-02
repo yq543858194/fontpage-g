@@ -56,6 +56,21 @@ export default {
   layout: 'blank',
   methods: {
     login: function () {
+      let self = this;
+      self.$axios.post (self.$store.state.serverBaseUrl + "/api/user/login", {
+        phone: self.phone,
+        password: self.password
+      }).then((response) => {
+        if (response.data.code === 200) {
+          localStorage.setItem("Authentication", response.data.data);
+          self.$store.dispatch("setToken", response.data.data);
+          self.$router.push('/');
+        } else {
+          self.$store.dispatch('infoDialog', response.data.msg);
+        }
+      }).catch((error) => {
+        self.$store.dispatch('infoDialog', error);
+      })
     }
   }
 }

@@ -1,7 +1,14 @@
 <template>
     <div class="video-detail">
         <div class="video-detail-video-container">
-            <video-item width="83.85%" title="hello1"/>
+            <video-item v-if="videoData !== null"
+                        :title="videoData.title"
+                        :author="videoData.editorName"
+                        :avatar="videoData.editorAvatar"
+                        :look-count="videoData.lookCount"
+                        :url="videoData.url"
+                        :post="videoData.post"
+                        width="83.85%"/>
         </div>
         <div class="video-detail-comment-container" style="width: 83.85%">
             <video-comment width="70%"/>
@@ -22,8 +29,22 @@
             VideoComment,
             RelatedVideo
         },
+        data () {
+            return {
+                videoData: null
+            }
+        },
         created() {
-            this.$store.dispatch('showLayout')
+            let self = this;
+            self.$store.dispatch('showLayout');
+            self.$axios.get(self.$store.state.serverBaseUrl + `/api/video/getVideoById?id=${self.$route.query.id}`)
+                .then((res) => {
+                    if (res.data.code === 200) {
+                        self.videoData = res.data.data;
+                    } else {
+                        self.$store.dispatch('infoDialog', response.data.msg);
+                    }
+                });
         }
     }
 </script>
