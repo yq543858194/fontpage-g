@@ -6,7 +6,7 @@
                 <img :src="post" :alt="title">
             </div>
             <!--列表项名称-->
-            <p class="list-item-title">{{title}}</p>
+            <p class="list-item-title" :title="title">{{title}}</p>
             <div class="list-item-content">
                 <!--列表项作者-->
                 <p class="left">
@@ -74,6 +74,8 @@
     }
     .list-item {
         margin: 0 auto;
+        display: inline-block;
+        padding: 10px;
         &-img {
             width: 100%;
             height: @height-list-img;
@@ -88,6 +90,11 @@
         }
         &-title {
             color: @color-title-small;
+            display: inline-block;
+            width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
             margin: 5px 10px 5px 0;
             text-align: left;
             font-size: @font-size-title-small;

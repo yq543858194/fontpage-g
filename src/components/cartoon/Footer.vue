@@ -65,7 +65,7 @@
              * @param event
              */
             changeChapter (row, column, event) {
-                this.$router.push(row.url);
+                this.$parent.updateData(row.id);
             }
         },
         computed: {

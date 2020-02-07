@@ -27,7 +27,7 @@ export default new Vuex.Store({
       /*当前页*/
       currentPage: 0,
       /*工具栏可见性*/
-      showTools: false
+      showTools: false,
     },
     /*个人中心当前页面*/
     currentFunction: '历史记录',
@@ -37,7 +37,9 @@ export default new Vuex.Store({
       Authentication: '',
       /*用户信息*/
       userData: null
-    }
+    },
+    /*id*/
+    contentId: ''
   },
   mutations: {
     /**
@@ -142,6 +144,15 @@ export default new Vuex.Store({
      */
     setUserData (state, userData) {
       state.user.userData = userData;
+    },
+
+    /**
+     * 设置内容id
+     * @param state
+     * @param contentId
+     */
+    setContentId (state, contentId) {
+      state.contentId = contentId;
     }
   },
   actions: {
@@ -240,6 +251,15 @@ export default new Vuex.Store({
      */
     setUserData (context, userData) {
       context.commit('setUserData', userData);
+    },
+
+    /**
+     * 设置内容id
+     * @param context
+     * @param cartoonId
+     */
+    setContentId (context, contentId) {
+      context.commit('setContentId', contentId);
     }
   },
   modules: {

@@ -2,7 +2,7 @@
     <div class="cartoon-detail">
         <transition name="fade-header">
             <!--标题栏-->
-            <cartoon-header v-show="this.$store.state.cartoon.showTools"/>
+            <cartoon-header :id="$route.query.id" :title="cartoonData.title" v-show="this.$store.state.cartoon.showTools"/>
         </transition>
         <ul class="cartoon-detail-list">
             <li class="cartoon-detail-list-item" v-for="(item, index) in cartoonImgList" :key="index">
@@ -15,7 +15,7 @@
         </div>
         <transition name="fade-footer">
             <!--工具栏-->
-            <cartoon-footer v-show="this.$store.state.cartoon.showTools"/>
+            <cartoon-footer :catalog="catalogList" :max-page="cartoonData.pageCount" v-show="this.$store.state.cartoon.showTools"/>
         </transition>
     </div>
 </template>
@@ -30,98 +30,28 @@
         data () {
             return {
                 /*漫画列表*/
-                cartoonImgList: [
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/01.jpg',
-                        id: 'c1'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/02.jpg',
-                        id: 'c2'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/03.jpg',
-                        id: 'c3'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/04.jpg',
-                        id: 'c4'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/05.jpg',
-                        id: 'c5'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/06.jpg',
-                        id: 'c6'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/07.jpg',
-                        id: 'c7'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/08.jpg',
-                        id: 'c8'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/09.jpg',
-                        id: 'c9'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/10.jpg',
-                        id: 'c10'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/11.jpg',
-                        id: 'c11'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/12.jpg',
-                        id: 'c12'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/13.jpg',
-                        id: 'c13'
-                    },
-                    {
-                        url: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/14.jpg',
-                        id: 'c14'
-                    }
-                ],
+                cartoonImgList: [],
+                /*动漫信息*/
+                cartoonData: {title: '', pageCount: 0},
                 /*漫画图片据页面顶部高度*/
                 scrollHeightArray: [],
                 /*当前页索引*/
-                currentPage: 0
+                currentPage: 0,
+                /*漫画列表元数据*/
+                cartoonImgListOrigin: [],
+                /*当前加载到的图片索引*/
+                currentLoadedIndex: 0,
+                /*目录列表*/
+                catalogList: []
             }
         },
         created() {
-            this.$store.dispatch('hideLayout');
-            this.currentPage = parseInt(sessionStorage.getItem("currentPage"));
+            let self = this;
+            self.$store.dispatch('hideLayout');
+            self.currentPage = parseInt(sessionStorage.getItem("currentPage"));
         },
         mounted() {
-            let that = this;
-            let i = 0;
-            let parent;
-            document.documentElement.scrollTop = 0;
-            this.$refs.cartoons.forEach((cartoon, index) => {
-                cartoon.onload = (e) => {
-                    parent = e.target.parentElement;
-                    that.scrollHeightArray[index] = parent.offsetTop;
-                }
-            });
-            window.onscroll = (e) => {
-                let that = this;
-                if (that.scrollHeightArray.length !== 0) {
-                    if (that.currentPage < that.scrollHeightArray.length - 1 && that.scrollHeightArray[that.currentPage + 1] < document.documentElement.scrollTop) {
-                        this.$store.dispatch('setCurrentPage', that.currentPage + 2);
-                        that.currentPage ++;
-                    } else if (that.scrollHeightArray[that.currentPage] > document.documentElement.scrollTop) {
-                        this.$store.dispatch('setCurrentPage', that.currentPage);
-                        that.currentPage --;
-                    }
-                }
-            };
-
+            this.updateData(this.$route.query.id);
         },
         methods: {
             /**
@@ -129,7 +59,88 @@
              */
             switchToolBar () {
                 this.$store.dispatch('setShowTools', !this.$store.state.cartoon.showTools);
-            }
+            },
+
+            /**
+             * 更新数据
+             * @Param id 动漫/轻小说id
+             */
+            updateData (id) {
+                let that = this;
+                let self = this;
+                // 清空之前的数据
+                self.cartoonImgListOrigin = [];
+                self.cartoonData = {title: '', pageCount: 0};
+                self.cartoonImgList = [];
+                self.scrollHeightArray = [];
+                self.catalogList = [];
+                self.currentLoadedIndex = 0;
+                self.currentPage = 0;
+                // 获取动漫信息
+                self.$axios.get(self.$store.state.serverBaseUrl + `/api/cartoon/getCartoon?id=${id}`)
+                    .then(res => {
+                        // 获取数据成功
+                        if (res.data.code === 200) {
+                            self.cartoonData = res.data.data;
+                            // 请求目录信息
+                            self.$axios.get(self.$store.state.serverBaseUrl + `/api/cartoon/getAllCartoonListByIndexId?indexId=${self.cartoonData.indexId}`)
+                                .then((res) => {
+                                    if (res.data.code === 200) {
+                                        res.data.data.forEach((item) => {
+                                            self.catalogList.push(item);
+                                        });
+                                    } else {
+                                        self.$store.dispatch('infoDialog', response.data.msg);
+                                    }
+                                });
+                            // 设置动漫评论信息，赋值id
+                            self.$store.dispatch('setCartoonId', id);
+                            // 将图片链接赋值给图片原数组
+                            for (let i = 0; i < self.cartoonData.pageCount; i++) {
+                                self.cartoonImgListOrigin.push({
+                                    url: `https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/${self.cartoonData.folder}/${i + 1}.jpg`,
+                                    id: `c${i + 1}`
+                                });
+                            }
+                            // 将图片原数组赋值第一个元素赋值给图片数组，准备按顺序加载图片
+                            if (self.cartoonData.pageCount !== 0) self.cartoonImgList.push(self.cartoonImgListOrigin[0]);
+                        } else {
+                            // 获取数据失败，显示失败信息
+                            self.$store.dispatch('infoDialog', res.data.msg);
+                        }
+                        // 在下一次视图刷新时调用数组
+                        self.$nextTick(() => {
+                            let i = 0;
+                            let parent;
+                            // 将滚动高度设定为文档开头
+                            document.documentElement.scrollTop = 0;
+                            // 当第一张图片加载完成后，获取第一张的高度信息，赋值给图片高度数组，之后继续从图片原数组中取一张赋值给图片数组，直到所有图片按顺序加载完毕
+                            that.$refs.cartoons.forEach((cartoon, index) => {
+                                cartoon.onload = (e) => {
+                                    parent = e.target.parentElement;
+                                    that.scrollHeightArray[index] = parent.offsetTop;
+                                    if (self.currentLoadedIndex <= self.cartoonData.pageCount) {
+                                        self.currentLoadedIndex ++;
+                                        self.cartoonImgList.push(self.cartoonImgListOrigin[self.currentLoadedIndex]);
+                                    }
+                                }
+                            });
+                            // 设定窗口滚动事件
+                            window.onscroll = (e) => {
+                                let that = this;
+                                if (that.scrollHeightArray.length !== 0) {
+                                    if (that.currentPage < that.scrollHeightArray.length - 1 && that.scrollHeightArray[that.currentPage + 1] < document.documentElement.scrollTop) {
+                                        this.$store.dispatch('setCurrentPage', that.currentPage + 2);
+                                        that.currentPage ++;
+                                    } else if (that.scrollHeightArray[that.currentPage] > document.documentElement.scrollTop) {
+                                        this.$store.dispatch('setCurrentPage', that.currentPage);
+                                        that.currentPage --;
+                                    }
+                                }
+                            };
+                        })
+                    });
+            },
         },
         components: {
             CartoonHeader,
@@ -143,6 +154,21 @@
         watch: {
             pageUrl (val) {
                 this.currentPage = val - 1;
+            },
+            cartoonImgList (newVal, oldVal) {
+                let self = this;
+                self.$nextTick (() => {
+                    self.$refs.cartoons.forEach((cartoon, index) => {
+                        cartoon.onload = (e) => {
+                            let parent = e.target.parentElement;
+                            self.scrollHeightArray[index] = parent.offsetTop;
+                            if (self.currentLoadedIndex < self.cartoonData.pageCount - 1) {
+                                self.currentLoadedIndex ++;
+                                self.cartoonImgList.push(self.cartoonImgListOrigin[self.currentLoadedIndex]);
+                            }
+                        }
+                    });
+                });
             }
         }
     }

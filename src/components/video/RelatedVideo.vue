@@ -9,10 +9,14 @@
         </div>
         <!--相关视频列表-->
         <ul class="related-video-list">
-            <li class="related-video-list-item" v-for="(item, index) in data" :key="index">
-                <index-list-item width="80%" :author="item.author" :title="item.title" :url="item.url" :post="item.post" :look-count="item.lookCount"/>
+            <li class="related-video-list-item" v-for="(item, index) in relatedList" :key="index">
+                <index-list-item width="80%" type="video" :post="item.post" :url="item.id" :author="item.editorName" :title="item.title" :look-count="item.lookCount" v-bind:key="index"/>
             </li>
         </ul>
+        <!--分页组件-->
+        <div class="comment-content-pagination">
+            <el-pagination layout="prev, pager, next" :total="totalCount" :page-size="size" @current-change="currentChange"/>
+        </div>
     </div>
 </template>
 
@@ -27,42 +31,58 @@
                 type: String,
                 default: '1610px'
             },
-            /*相关视频数据*/
-            data: {
-                type: Array,
-                default: () => {
-                    return [
-                        {
-                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background1.png',
-                            url: '',
-                            title: 'hello2',
-                            author: '机器人1',
-                            lookCount: 100
-                        },
-                        {
-                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background2.png',
-                            url: '',
-                            title: 'hello3',
-                            author: '机器人1',
-                            lookCount: 100
-                        },
-                        {
-                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background3.png',
-                            url: '',
-                            title: 'hello4',
-                            author: '机器人1',
-                            lookCount: 100
-                        },
-                        {
-                            post: 'https://graduation-cartoon.oss-cn-beijing.aliyuncs.com/imgs/background4.png',
-                            url: '',
-                            title: 'hello5',
-                            author: '机器人1',
-                            lookCount: 100
-                        }
-                    ];
-                }
+            /*当前集数*/
+            currentOrder : {
+                type: Number,
+                default: 0
+            },
+            /*主页详情id*/
+            indexId: {
+                type: String
             }
+        },
+        data () {
+            return {
+                /*相关视频列表*/
+                relatedList: [],
+                /*当前页*/
+                currentPage: 0,
+                /*总信息数*/
+                totalCount: 0,
+                /*每页信息数*/
+                size: 3
+            }
+        },
+        methods: {
+            /**
+             * 更新信息
+             */
+            updateList () {
+                let self = this;
+                self.relatedList = [];
+                self.$axios.get(self.$store.state.serverBaseUrl + `/api/video/getAllVideoByIndexId?indexId=${self.indexId}&currentPage=${self.currentPage}&size=${self.size}&currentOrder=${self.currentOrder}`)
+                    .then((res) => {
+                        if (res.data.code === 200) {
+                            self.totalCount = res.data.data.total;
+                            res.data.data.records.forEach((item) => {
+                                self.relatedList.push(item);
+                            });
+                        } else {
+                            self.$store.dispatch('infoDialog', response.data.msg);
+                        }
+                    });
+            },
+            /**
+             * 改变当前页面
+             * @param current
+             */
+            currentChange (current) {
+                this.currentPage = current;
+                this.updateList();
+            }
+        },
+        created() {
+            this.updateList();
         },
         components: {
             IndexListItem

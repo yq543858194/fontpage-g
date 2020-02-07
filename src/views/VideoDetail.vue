@@ -11,8 +11,8 @@
                         width="83.85%"/>
         </div>
         <div class="video-detail-comment-container" style="width: 83.85%">
-            <video-comment width="70%"/>
-            <related-video width="25%"/>
+            <video-comment type="video" width="70%"/>
+            <related-video width="25%" :current-order="videoData.orderNum" :index-id="videoData.indexId"/>
         </div>
     </div>
 </template>
@@ -37,12 +37,13 @@
         created() {
             let self = this;
             self.$store.dispatch('showLayout');
+            self.$store.dispatch('setContentId', self.$route.query.id);
             self.$axios.get(self.$store.state.serverBaseUrl + `/api/video/getVideoById?id=${self.$route.query.id}`)
                 .then((res) => {
                     if (res.data.code === 200) {
                         self.videoData = res.data.data;
                     } else {
-                        self.$store.dispatch('infoDialog', response.data.msg);
+                        self.$store.dispatch('infoDialog', res.data.msg);
                     }
                 });
         }

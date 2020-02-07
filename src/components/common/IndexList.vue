@@ -7,7 +7,7 @@
         </div>
         <!--列表项-->
         <div class="index-list-item-container">
-            <IndexListItem width="18%" :type="type" :post="item.post" :url="item.id" :author="item.name" :title="item.title" :look-count="item.lookCount"  v-for="(item, index) in content" v-bind:key="index"/>
+            <IndexListItem width="18%" :type="type" :post="item.post" :url="item.id" :author="item.editorName" :title="item.title" :look-count="item.lookCount"  v-for="(item, index) in content" v-bind:key="index"/>
         </div>
     </div>
 </template>
@@ -110,9 +110,8 @@
         }
         &-item-container {
             width: 100%;
-            display: flex;
-            justify-content: space-around;
             margin: 0 auto;
+            text-align: left;
         }
     }
 </style>

@@ -15,6 +15,7 @@
             width="30%"
             :show-close="false"
             :close-on-press-escape="false"
+            :modal-append-to-body='false'
             :close-on-click-modal="false">
       <span>{{$store.state.info.content}}</span>
       <span slot="footer" class="dialog-footer">

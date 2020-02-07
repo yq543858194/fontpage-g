@@ -15,27 +15,31 @@
             <!--评论列表-->
             <ul class="comment-content-list">
                 <!--评论列表项-->
-                <li class="comment-content-list-item" v-for="(item, index) in comments" :key="index">
+                <li class="comment-content-list-item" v-for="(item, index) in commentList" :key="index">
                     <!--评论者头像-->
                     <div class="comment-content-list-item-avatar">
-                        <img :src="item.avatar" alt="头像">
+                        <img :src="item.userAvatar" alt="头像">
                     </div>
                     <div class="comment-content-list-item-text">
                         <!--评论者昵称-->
-                        <h4>{{item.name}}</h4>
+                        <h4>{{item.userName}}</h4>
                         <!--评论内容-->
                         <div class="comment-content-list-item-text-content" v-html="item.content"/>
                         <!--点赞人数/点赞按钮-->
                         <span class="right point" @click="zan(index, item.zanCount)"><i ref="commentZanIcon" class="fa fa-thumbs-o-up"/><span ref="commentZanText">{{item.zanCount}}</span></span>
                     </div>
                     <!--分割线-->
-                    <div class="comment-content-list-item-split" v-if="index !== comments.length - 1"></div>
+                    <div class="comment-content-list-item-split" v-if="index !== commentList.length - 1"></div>
                 </li>
             </ul>
+            <!--分页组件-->
+            <div class="comment-content-pagination">
+                <el-pagination layout="prev, pager, next" :total="totalCount" :page-size="size" @current-change="currentChange"/>
+            </div>
         </div>
         <!--评论输入组件-->
         <div class="comment-editor">
-            <editor :is-padding="isPadding"/>
+            <editor :type="type" :is-padding="isPadding"/>
         </div>
     </div>
 </template>
@@ -98,6 +102,10 @@
             isCenter: {
                 type: Boolean,
                 default: false
+            },
+            /*评论类型*/
+            type: {
+                type: String
             }
         },
         data () {
@@ -105,13 +113,19 @@
                 /*排序状态(0代表按点赞数量排序，1代表按时间排序)*/
                 sortStatus: 0,
                 /*点赞状态*/
-                zanStatus: []
+                zanStatus: [],
+                /*当前页*/
+                currentPage: 0,
+                /*评论信息*/
+                commentList: [],
+                /*总信息数*/
+                totalCount: 0,
+                /*每页信息数*/
+                size: 5
             }
         },
         created() {
-            for (let i = 0; i < this.comments.length; i ++) {
-                this.zanStatus[i] = 0
-            }
+            this.updateList(this.$route.query.id);
         },
         methods: {
             /**
@@ -145,10 +159,46 @@
                     this.$refs.commentZanIcon[index].classList.add("fa-thumbs-o-up");
                     this.$refs.commentZanText[index].innerHTML = zanCount;
                 }
+            },
+            /**
+             * 更新评论列表
+             */
+            updateList (id) {
+                let self = this;
+                for (let i = 0; i < self.comments.length; i ++) {
+                    self.zanStatus[i] = 0
+                }
+                this.commentList = [];
+                self.$axios.get(self.$store.state.serverBaseUrl + `/api/${self.type}Comment/getAllCommentByTypeId?typeId=${id}&currentPage=${self.currentPage}&size=${self.size}`)
+                    .then((res) => {
+                        if (res.data.code === 200) {
+                            self.totalCount = res.data.data.total;
+                            res.data.data.records.forEach(item => {
+                                self.commentList.push(item);
+                            })
+                        } else {
+                            self.$store.dispatch('infoDialog', res.data.msg);
+                        }
+                    });
+            },
+            /*当前页变化*/
+            currentChange (current) {
+                this.currentPage = current;
+                this.updateList(self.$sotre.state.contentId);
             }
         },
         components: {
             Editor
+        },
+        computed: {
+            contentId () {
+                return this.$store.state.contentId;
+            }
+        },
+        watch: {
+            contentId (val) {
+                this.updateList(val);
+            }
         }
     }
 </script>

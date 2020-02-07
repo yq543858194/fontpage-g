@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import {Carousel, CarouselItem, Button, Popover, Dialog, Slider,
   Table, TableColumn, Divider, Timeline, TimelineItem, Card,
   Row, Col, Upload, Input, DatePicker, Select, Option, Checkbox,
-  Form, FormItem} from 'element-ui'
+  Form, FormItem, Pagination} from 'element-ui'
 import 'video.js/dist/video-js.min.css'
 import VideoJs from 'video.js'
 import Axios from 'axios'
@@ -40,6 +40,7 @@ Vue.use(Option);
 Vue.use(Checkbox);
 Vue.use(Form);
 Vue.use(FormItem);
+Vue.use(Pagination);
 
 new Vue({
   router,

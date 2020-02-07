@@ -4,7 +4,7 @@
         <span class="header-title">{{title}}</span>
         <img :src="this.$store.state.baseUrl + '/icons/cartoonComment.png'" alt="评论" title="评论" class="header-comment right point" @click="commentVisible = true">
         <el-dialog title="评论" :visible.sync="commentVisible" :modal-append-to-body='false'>
-            <comment width="100%" :show-title="false" background="#ffffff" :is-padding="true"/>
+            <comment type="cartoon" width="100%" :show-title="false" background="#ffffff" :is-padding="true"/>
         </el-dialog>
     </div>
 </template>

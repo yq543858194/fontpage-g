@@ -9,7 +9,7 @@
                        :post="indexDetail.url"
                        :author="indexDetail.author"
                        :introduce-content="indexDetail.description"
-                       :is-favorite="false"
+                       ref="introduce"
                        width="83.85%"/>
         </div>
         <!--动漫信息-->
@@ -49,10 +49,16 @@
         },
         data () {
             return {
+                /*主页详情*/
                 indexDetail: null,
+                /*主页详情关联视频列表*/
                 indexVideo: [],
+                /*主页详情关联动漫/轻小说列表*/
                 indexCartoon: [],
-                indexRelatedInformation: []
+                /*主页详情关联相关信息列表*/
+                indexRelatedInformation: [],
+                /*收藏状态*/
+                isFavorite: false
             }
         },
         async created() {
@@ -67,6 +73,20 @@
                         self.$store.dispatch('infoDialog', response.data.msg);
                     }
                 });
+            self.$axios.post(self.$store.state.serverBaseUrl + `/api/indexFavorite/favoriteSearch`, {
+                indexId: self.$route.query.id
+            },{
+                headers: {
+                    Authorization: self.$store.state.user.Authentication
+                }
+            }).then(res => {
+            if (res.data.code === 200) {
+                if (res.data.data) self.$refs.introduce.setFavoriteStatus(true);
+                else  self.$refs.introduce.setFavoriteStatus(false);
+            } else {
+                self.$store.dispatch('infoDialog', res.data.msg);
+            }
+        });
             self.$axios.get(self.$store.state.serverBaseUrl + `/api/video/getAllVideoByIndexId?indexId=${self.$route.query.id}&currentPage=1&size=5`)
                 .then((res) => {
                     if (res.data.code === 200) {

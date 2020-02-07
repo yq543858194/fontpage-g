@@ -48,7 +48,7 @@ const routes = [
   },
     /*相关信息详情页*/
   {
-    path: '/informationDetail',
+    path: '/relatedInformationDetail',
     name: 'informationDetail',
     component: () => import('../views/InformationDetail.vue')
   },

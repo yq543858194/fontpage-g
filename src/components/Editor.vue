@@ -25,12 +25,37 @@
             isPadding: {
                 type: Boolean,
                 default: false
+            },
+            /*评论类型*/
+            type: {
+                type: String
             }
         },
         methods: {
             /*提交评论操作*/
             submit() {
-                alert(this.editorContent)
+                let self = this;
+                if (self.editorContent === '') {
+                    self.$store.dispatch('infoDialog', '评论内容不能为空');
+                } else {
+                    let data = {};
+                    data["content"] = self.editorContent;
+                    data[`${self.type}Id`] = self.$route.query.id;
+                    self.$axios.post(self.$store.state.serverBaseUrl + `/api/${self.type}Comment/addComment`,data,{
+                        headers: {
+                            Authorization: self.$store.state.user.Authentication
+                        }
+                    }).then(res => {
+                        if (res.data.code === 200) {
+                            self.$store.dispatch('infoDialog', '评论成功');
+                            self.$parent.updateList(self.$store.state.contentId);
+                        } else if (res.data.code === 311) {
+                            self.$store.dispatch('infoDialog', '请重新登录');
+                        }else {
+                            self.$store.dispatch('infoDialog', res.data.msg);
+                        }
+                    })
+                }
             },
         },
         mounted() {
@@ -57,6 +82,7 @@
                 'undo',  // 撤销
                 'redo'  // 重复
             ];
+            editor.customConfig.zIndex = 1000;
             editor.create()
         }
     }

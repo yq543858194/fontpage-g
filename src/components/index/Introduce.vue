@@ -36,7 +36,8 @@
                 <p>{{introduceContent}}</p>
                 <!--收藏按钮-->
                 <div class="introduce-content-text-button">
-                    <el-button type="primary">收藏</el-button>
+                    <el-button :disabled="disableButton" type="primary" v-if="!favoriteStatus" @click="favorite(true)">收藏</el-button>
+                    <el-button :disabled="disableButton" type="info" v-else @click="favorite(false)">取消收藏</el-button>
                 </div>
             </div>
         </div>
@@ -88,11 +89,53 @@
             introduceContent: {
                 type: String,
                 default: '这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介，这里是动漫简介。'
+            }
+        },
+        data () {
+            return {
+                /*收藏状态*/
+                favoriteStatus: false,
+                /*收藏按钮是否被禁用*/
+                disableButton: false
+            }
+        },
+        methods: {
+            /**
+             * 收藏/取消收藏操作
+             * @param status true为收藏，false为取消收藏
+             */
+            favorite (status) {
+                let self = this;
+                self.disableButton = true;
+                let url = "";
+                if (status)
+                    url = self.$store.state.serverBaseUrl + `/api/indexFavorite/favoriteAdd`;
+                else
+                    url = self.$store.state.serverBaseUrl + `/api/indexFavorite/favoriteDelete`;
+                self.$axios.post(url, {
+                    indexId: self.$route.query.id
+                },{
+                    headers: {
+                        Authorization: self.$store.state.user.Authentication
+                    }
+                }).then(res => {
+                    self.disableButton = false;
+                    if (res.data.code === 200) {
+                        if (res.data.data) {
+                            if (status)  self.favoriteStatus = true;
+                            else self.favoriteStatus = false;
+                        }
+                    } else {
+                        self.$store.dispatch('infoDialog', res.data.msg);
+                    }
+                });
             },
-            /*收藏状态*/
-            isFavorite: {
-                type: Boolean,
-                default: false
+            /**
+             * 设置收藏状态
+             * @param val
+             */
+            setFavoriteStatus (val) {
+                this.favoriteStatus = val;
             }
         }
     }

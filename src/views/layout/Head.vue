@@ -58,6 +58,8 @@
                     self.$store.dispatch('setUserData', res.data.data);
                 } else if (res.data.code === 310) {
                     self.$store.dispatch('setToken', '');
+                } else if (res.data.code === 311) {
+                    self.$store.dispatch('setToken', '');
                 }
             }
         }
